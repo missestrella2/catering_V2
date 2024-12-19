@@ -1,0 +1,30 @@
+{% extends 'calculos/base.html' %}
+
+{% block title %}Lista de Recetas{% endblock %}
+
+{% block content %}
+<h2>Lista de Recetas</h2>
+<a href="{% url 'agregar_receta' %}">Agregar Nueva Receta</a>
+<table>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Porciones</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for receta in recetas %}
+        <tr>
+            <td>{{ receta.nombre }}</td>
+            <td>{{ receta.porciones }}</td>
+            <td>
+                <a href="{% url 'detalle_receta' receta.id %}">Ver</a>
+                <a href="{% url 'editar_receta' receta.id %}">Editar</a>
+                <a href="{% url 'eliminar_receta' receta.id %}" onclick="return confirm('¿Está seguro de eliminar esta receta?');">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

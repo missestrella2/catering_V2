@@ -1,0 +1,16 @@
+{% extends 'calculos/base.html' %}
+{% load static %}
+{% block content %}
+    <h1>Ingredientes</h1>
+    <ul>
+        {% for ingrediente in ingredientes %}
+            <li>{{ ingrediente.nombre }} - {{ ingrediente.cantidad }} {{ ingrediente.unidad }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'agregar_ingrediente' %}">Agregar Ingrediente</a>
+
+    {% for ingrediente in ingredientes %}
+    <p>{{ ingrediente.ingrediente.nombre }}: {{ ingrediente.cantidad_necesaria }}</p>
+    {% endfor %}
+
+{% endblock %}

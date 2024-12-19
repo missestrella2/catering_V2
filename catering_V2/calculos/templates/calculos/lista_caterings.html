@@ -1,0 +1,11 @@
+{% extends 'calculos/base.html' %}
+{% load static %}
+{% block content %}
+    <h1>Lista de Caterings</h1>
+    <ul>
+        {% for catering in caterings %}
+            <li>{{ catering }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'agregar_catering' %}">Agregar Catering</a>
+{% endblock %}
