@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Mi Aplicación de Catering{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'calculos/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <header>
@@ -13,8 +14,8 @@
         <nav>
             <ul>
                 <li><a href="{% url 'home_calculos' %}">Inicio</a></li>
+                <li><a href="{% url 'lista_ingredientes_principal' %}">Ingredientes</a></li>
                 <li><a href="{% url 'lista_recetas' %}">Recetas</a></li>
-                <li><a href="{% url 'lista_ingredientes' %}">Ingredientes</a></li>
                 <li><a href="{% url 'lista_caterings' %}">Caterings</a></li>
             </ul>
         </nav>

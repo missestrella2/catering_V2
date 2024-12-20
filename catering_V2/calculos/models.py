@@ -1,31 +1,35 @@
 from django.db import models
+from decimal import Decimal
 
 class Ingrediente(models.Model):
     nombre = models.CharField(max_length=100)
     marca = models.CharField(max_length=50, blank=True, null=True)
-    cantidad = models.FloatField()  # Cantidad en la unidad del ingrediente
+    cantidad = models.DecimalField(max_digits=10, decimal_places=2)
     unidad = models.CharField(max_length=100, default='default_unit')
-    #unidad = models.CharField(max_length=50)  # Ejemplo: gramos, litros, unidades
-    precio = models.DecimalField(max_digits=10, decimal_places=2)  # Precio total
+    precio = models.DecimalField(max_digits=10, decimal_places=2)
 
-    def __str__(self):
-        return f"{self.nombre} ({self.marca}) - {self.cantidad}{self.unidad}"
+    def delete(self, *args, **kwargs):
+        if RecetaIngrediente.objects.filter(ingrediente=self).exists():
+            raise ValueError(f"No se puede eliminar el ingrediente '{self.nombre}' porque está asociado a una o más recetas.")
+        super().delete(*args, **kwargs)
+
 
 
 class Receta(models.Model):
     nombre = models.CharField(max_length=100)
     porciones = models.PositiveIntegerField(default=1)
 
-    def __str__(self):
-        return f"{self.nombre} ({self.porciones} porciones)"
-
+    def delete(self, *args, **kwargs):
+        if CateringReceta.objects.filter(receta=self).exists():
+            raise ValueError(f"No se puede eliminar la receta '{self.nombre}' porque está asociada a uno o más caterings.")
+        super().delete(*args, **kwargs)
 
 
 # Tabla intermedia para definir ingredientes en recetas
 class RecetaIngrediente(models.Model):
     receta = models.ForeignKey(Receta, on_delete=models.CASCADE)
     ingrediente = models.ForeignKey(Ingrediente, on_delete=models.CASCADE)
-    cantidad_necesaria = models.FloatField()  # Cantidad necesaria para esta receta
+    cantidad_necesaria = models.DecimalField(max_digits=10, decimal_places=2)  # Cantidad necesaria para esta receta
     unidad = models.CharField(max_length=50)  # Unidad específica
 
     def __str__(self):
@@ -33,11 +37,19 @@ class RecetaIngrediente(models.Model):
 
 
 class Catering(models.Model):
-    receta = models.ForeignKey(Receta, on_delete=models.CASCADE)
-    cantidad_personas = models.IntegerField()
+    nombre = models.CharField(max_length=100, default="Catering genérico")
+    cantidad_personas = models.PositiveIntegerField()
 
     def __str__(self):
-        return f"{self.cantidad_personas} personas para {self.receta}"
+        return f"{self.nombre} ({self.cantidad_personas} personas)"
 
+
+class CateringReceta(models.Model):
+    catering = models.ForeignKey(Catering, on_delete=models.CASCADE, related_name="recetas")
+    receta = models.ForeignKey('Receta', on_delete=models.CASCADE)
+    porciones = models.PositiveIntegerField()
+
+    def __str__(self):
+        return f"{self.receta.nombre} en {self.catering.nombre} ({self.porciones} porciones)"
 
 

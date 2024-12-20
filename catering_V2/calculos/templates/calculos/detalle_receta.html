@@ -10,7 +10,8 @@
     <thead>
         <tr>
             <th>Ingrediente</th>
-            <th>Cantidad Necesaria</th>
+            <th>Cantidad</th>
+            <th>Unidad</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -19,6 +20,7 @@
         <tr>
             <td>{{ ingrediente.ingrediente.nombre }}</td>
             <td>{{ ingrediente.cantidad_necesaria }}</td>
+            <td>{{ ingrediente.ingrediente.unidad }}</td>
             <td>
                 <a href="{% url 'editar_ingrediente_receta' ingrediente.id %}">Editar</a>
                 <a href="{% url 'eliminar_ingrediente_receta' ingrediente.id %}" onclick="return confirm('¿Está seguro de eliminar este ingrediente?');">Eliminar</a>

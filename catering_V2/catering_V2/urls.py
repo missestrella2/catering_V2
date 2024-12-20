@@ -28,9 +28,11 @@ urlpatterns = [
     path('calculos/', include('calculos.urls')),
     #path('', RedirectView.as_view(url='/calculos/', permanent=False)),  # Redirige la raíz a /calculos/
     path('', views.home),  # La vista home renderizará la plantilla home.html
-    path('calculos/calcular/', views.calcular_catering, name='calcular_catering'),
+    #path('calculos/calcular/', views.calcular_catering, name='calcular_catering'),
     path('calculos/', views.home_calculos, name='home_calculos'),  # Nueva ruta para /calculos/
+
 ]
+
 
 
 

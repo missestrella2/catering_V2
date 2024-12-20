@@ -19,12 +19,22 @@ class RecetaIngredienteForm(forms.ModelForm):
 from django import forms
 from .models import Catering
 
-class CateringForm(forms.ModelForm):
-    class Meta:
-        model = Catering
-        fields = ['receta', 'cantidad_personas']
 
 class RecetaForm(forms.ModelForm):
     class Meta:
         model = Receta
         fields = ['nombre', 'porciones']  # Incluir el campo porciones
+
+from django import forms
+from .models import Catering, CateringReceta
+
+class CateringForm(forms.ModelForm):
+    class Meta:
+        model = Catering
+        fields = ['nombre', 'cantidad_personas']
+
+class CateringRecetaForm(forms.ModelForm):
+    class Meta:
+        model = CateringReceta
+        fields = ['receta', 'porciones']
+
