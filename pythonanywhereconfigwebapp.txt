@@ -39,6 +39,12 @@ STATICFILES_DIRS = [
 ]
 
 
+en consola:
+============
+
+git update-index --assume-unchanged /home/cynthiavillagra/catering_V2/catering_V2/catering_V2/settings.py
+
+
 en wsgi:
 ==============
 import os

@@ -9,6 +9,10 @@
     </div>
     <script>
         const rasaEndpoint = "http://localhost:5005/webhooks/rest/webhook";
+        
+        // para produccion:
+        // const rasaEndpoint = "http://ACA REEMPLAZAR POR NGROK/webhooks/rest/webhook";    
+        
 
         function sendMessage() {
             const userInput = document.getElementById("userInput").value;
