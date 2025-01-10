@@ -8,18 +8,16 @@
         <button onclick="sendMessage()">Send</button>
     </div>
     <script>
+        //PARA PRUEBAS LOCALES
         //const rasaEndpoint = "http://localhost:5005/webhooks/rest/webhook";
         
         // para produccion:
-        // const rasaEndpoint = "http://ACA REEMPLAZAR POR NGROK/webhooks/rest/webhook";
-        const rasaEndpoint = "https://0701-181-171-187-236.ngrok-free.app/webhooks/rest/webhook";  
-
-        //para produccion opcion b, con deteccion automatica NO FUNCIONA
-        //const response = await fetch("http://127.0.0.1:4040/api/tunnels");
-        //const data = await response.json();
-        //const rasaEndpoint = data.tunnels[0].public_url + "/webhooks/rest/webhook";
+        //const rasaEndpoint = "https://0701-181-171-187-236.ngrok-free.app/webhooks/rest/webhook";    
         
-              
+        //para produccion opcion b, con deteccion automatica
+        const response = await fetch("http://127.0.0.1:4040/api/tunnels");
+        const data = await response.json();
+        const rasaEndpoint = data.tunnels[0].public_url + "/webhooks/rest/webhook";
 
         function sendMessage() {
             const userInput = document.getElementById("userInput").value;
