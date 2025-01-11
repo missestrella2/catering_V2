@@ -3,14 +3,23 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 import json
+import json
+from decimal import Decimal
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+
+from .models import ChatMessage
+from calculos.models import Ingrediente
 
 from .models import ChatMessage  # Importa el modelo
+
 
 def chatbot_view(request):
     return render(request, 'api/chatbot.html')
 
 
-@csrf_exempt
+#@csrf_exempt
 def enviar_mensaje_a_rasa(request):
     if request.method == "POST":
         try:
@@ -109,13 +118,69 @@ from calculos.models import Ingrediente
 
 
 
+
+# def crear_ingrediente(request):
+#     if request.method == "POST":
+#         data = json.loads(request.body)
+#         ingrediente = Ingrediente.objects.create(
+#             nombre=data["nombre"],
+#             cantidad=data["cantidad"],
+#             precio=data["precio"]
+#         )
+#         return JsonResponse({"message": "Ingrediente creado"}, status=201)
+
+
+
+
+#@csrf_exempt
 def crear_ingrediente(request):
+    """
+    Endpoint para crear un ingrediente en la base de datos de Django.
+    Rasa envía un POST con JSON, por ejemplo:
+    {
+      "nombre": "fideos",
+      "marca": "Marolio",
+      "cantidad": "500",
+      "unidad": "g",
+      "precio": "400"
+    }
+    """
     if request.method == "POST":
-        data = json.loads(request.body)
-        ingrediente = Ingrediente.objects.create(
-            nombre=data["nombre"],
-            cantidad=data["cantidad"],
-            precio=data["precio"]
-        )
-        return JsonResponse({"message": "Ingrediente creado"}, status=201)
+        try:
+            data = json.loads(request.body)
+
+            # Extraer datos del JSON
+            nombre = data.get("nombre", "")
+            marca = data.get("marca", None)  # Puede ser None si no viene
+            cantidad_str = data.get("cantidad", "0")
+            unidad = data.get("unidad", "ejemplo: gramos")
+            precio_str = data.get("precio", "0")
+
+            # Convertir cantidad y precio a Decimal
+            try:
+                cantidad = Decimal(cantidad_str)
+            except:
+                cantidad = Decimal("0")
+
+            try:
+                precio = Decimal(precio_str)
+            except:
+                precio = Decimal("0")
+
+            # Crear el ingrediente en la BD
+            Ingrediente.objects.create(
+                nombre=nombre,
+                marca=marca,
+                cantidad=cantidad,
+                unidad=unidad,
+                precio=precio
+            )
+
+            return JsonResponse({"message": "Ingrediente creado"}, status=201)
+
+        except Exception as e:
+            return JsonResponse({"error": f"Error al crear ingrediente: {str(e)}"}, status=500)
+
+    return JsonResponse({"error": "Método no permitido"}, status=405)
+
 

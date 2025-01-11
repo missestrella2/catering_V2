@@ -34,6 +34,13 @@ ALLOWED_HOSTS = ['cynthiavillagra.pythonanywhere.com']
 
 # Application definition
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://9b87-181-171-187-236.ngrok-free.app',  # Reemplaza por tu URL de ngrok
+    'http://localhost:5005',                  # Action Server local
+    'http://127.0.0.1:5005'                   # Otra forma de localhost
+]
+
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
