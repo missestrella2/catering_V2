@@ -1,0 +1,133 @@
+Instrucciones para Configurar ngrok
+________________________________________
+1. Registrarse en ngrok
+1. Crear una Cuenta en ngrok:
+
+- Ve al sitio oficial: ngrok Sign Up.
+- Completa el formulario de registro o inicia sesión si ya tienes una cuenta.
+
+2. Verificar tu Cuenta:
+
+- Sigue las instrucciones que recibas por correo electrónico para verificar tu cuenta.
+
+3. Obtener tu Authtoken:
+
+- Una vez que hayas iniciado sesión, ve a la sección "Get Started" en el panel de control.
+- Copia el Authtoken que ngrok te proporciona. Será necesario más adelante.
+
+________________________________________
+2. Descargar y Configurar ngrok
+1. Descargar ngrok:
+
+- Ve a ngrok Downloads.
+- Descarga el archivo .zip para tu sistema operativo (por ejemplo, Windows).
+
+2. Descomprimir el Archivo:
+
+- Localiza el archivo .zip en tu carpeta de descargas.
+- Haz clic derecho sobre el archivo y selecciona "Extraer todo...".
+- Extrae los archivos en una carpeta, por ejemplo, C:\ngrok.
+
+________________________________________
+3. Abrir la Consola como Administrador
+1. Abrir la Consola CMD:
+
+- Presiona Win + S, escribe cmd, y selecciona "Ejecutar como administrador".
+
+2. Navegar a la Carpeta de ngrok:
+
+- Usa el comando cd para moverte a la carpeta donde descomprimiste ngrok. Por ejemplo:
+
+cd C:\ngrok
+
+________________________________________
+4. Configurar el Authtoken de ngrok
+1. Añadir el Authtoken:
+
+- Usa el siguiente comando, reemplazando TU_AUTHTOKEN con el token que copiaste del panel de ngrok:
+
+ngrok config add-authtoken TU_AUTHTOKEN
+
+- Ejemplo:
+
+ngrok config add-authtoken 2r5Md6wvFN9RERvYhGyt6XiR2Qq_4B9NNpzfQ4fYsfBinMwmA
+
+2. Verificar la Configuración:
+
+- Si el comando se ejecuta correctamente, tu authtoken quedará configurado y podrás usar ngrok.
+
+________________________________________
+5. Iniciar un Túnel con ngrok
+1. Iniciar el Servidor Local:
+
+- Asegúrate de que tu servidor local esté corriendo en el puerto correcto (por ejemplo, 5005).
+
+2. Ejecutar ngrok para Exponer tu Servidor:
+
+- En la consola, ejecuta el siguiente comando para crear un túnel:
+
+desde bash: ngrok http 5005
+o desde powershell: .\ngrok.exe http 5005
+
+- Esto expone tu servidor en el puerto 5005 y genera una URL pública.
+
+3. Observar la URL Pública Generada:
+
+- Después de ejecutar el comando, ngrok mostrará algo como esto:
+
+Forwarding                    http://abcd1234.ngrok.io -> http://localhost:5005
+
+Forwarding                    https://abcd1234.ngrok.io -> http://localhost:5005
+
+- Copia la URL pública (https://abcd1234.ngrok.io) para usarla en tu archivo HTML.
+
+________________________________________
+6. Actualizar tu Archivo HTML
+1. Abrir tu Archivo HTML:
+
+- Usa un editor de texto (por ejemplo, VS Code, Sublime Text) para abrir tu archivo HTML.
+
+2. Actualizar la URL:
+
+- Busca donde tu archivo HTML hace referencia a localhost. Por ejemplo:
+
+const webhookURL = "http://localhost:5005/webhooks/rest/webhook";
+
+- Sustitúyelo por la URL generada por ngrok. Ejemplo:
+
+const webhookURL = "https://abcd1234.ngrok.io/webhooks/rest/webhook";
+
+3. Guardar los Cambios:
+
+- Guarda el archivo HTML.
+
+________________________________________
+7. Probar la Conexión
+1. Mantener ngrok Activo:
+
+- Deja la consola de ngrok abierta mientras necesites el túnel activo.
+
+2. Abrir tu Archivo HTML en un Navegador:
+
+- Navega a la ubicación de tu archivo HTML y ábrelo en un navegador.
+
+3. Verificar la Comunicación:
+
+- Prueba que las solicitudes del HTML se conecten correctamente al servidor utilizando la URL pública de ngrok.
+
+________________________________________
+8. Monitorear las Solicitudes con el Panel de ngrok
+1. Abrir el Panel de ngrok:
+
+- En tu navegador, accede a http://127.0.0.1:4040.
+
+2. Revisar las Solicitudes:
+
+- Observa las solicitudes entrantes y salientes hacia tu servidor para asegurarte de que todo esté funcionando correctamente.
+
+________________________________________
+Notas Finales
+- URLs Dinámicas: Si usas un plan gratuito, la URL pública de ngrok cambia cada vez que inicias un nuevo túnel. Si necesitas una URL fija, considera adquirir un plan de pago.
+- Seguridad: Asegúrate de proteger tu servidor para evitar accesos no autorizados desde internet.
+
+Con estas instrucciones completas, deberías poder descargar, configurar y usar ngrok exitosamente para exponer tu servidor local y conectarlo con tu archivo HTML. ¡Éxito con tu proyecto!

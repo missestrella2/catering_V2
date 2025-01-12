@@ -1,0 +1,48 @@
+arrancar duckling con docker: docker run -p 8001:8000 rasa/duckling
+
+
+
+fuentes: 
+docs: https://rasa.com/docs/rasa/2.x/components
+youtube: https://www.youtube.com/watch?v=MDF-4LDvn0M
+
+1 - instalar docker: https://docs.docker.com/desktop/setup/install/windows-install/
+2 - ir a los archivos de rasa a config.yml, en pipeline borrar la palabra "null" y descomentar todo en pipeline
+3 - al final de pipeline agregar Duckling ntal cual dice en 
+https://rasa.com/docs/rasa/2.x/components Concepts > Config > Pipeline components > 
+DucklingEntityExtractor > Configuration
+Agregar lo siguiente:
+
+pipeline:
+- name: "DucklingEntityExtractor"
+  # url of the running duckling server
+  url: "http://localhost:8001"
+  # dimensions to extract
+  dimensions: ["time", "number", "amount-of-money", "distance"]
+  # allows you to configure the locale, by default the language is
+  # used
+  locale: "de_DE"
+  # if not set the default timezone of Duckling is going to be used
+  # needed to calculate dates from relative expressions like "tomorrow"
+  timezone: "Europe/Berlin"
+  # Timeout for receiving response from http url of the running duckling server
+  # if not set the default timeout of duckling http url is set to 3 seconds.
+  timeout : 3
+
+  4 - configurar url, dimensions etc
+  5 - abrir el archivo domain.yml y agregar
+
+  intents:
+    -ask_time (ejemplo)
+
+  entities:
+    -time (ejemplo)
+
+  slots:
+    time:
+       type: any (ejemplo)
+
+  utter_time:
+  - text: "It is {time}"
+
+6 - abrir archivo 

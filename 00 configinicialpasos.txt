@@ -1,0 +1,27 @@
+instalar git
+instalar python 3.9
+instalar VSC
+crear env para django
+crear env para rasa 
+clonar de github: catering_V2
+clonar de github: rasa
+instalar requeriments.txt en entorno virtual de envdjango
+intalar requeriments en entorno virtual rasa\
+si da error: actualizar pip y setuptools e intentar de nuevo: 
+pip install --upgrade pip     
+pip install --upgrade setuptools
+
+instalar ngrok (ver instructivo)
+pruebas de local: 
+levanta ngrok: 
+desde bash: ngrok http 5005
+o desde powershell: .\ngrok.exe http 5005
+cambiar en la template chatbot.html  la ruta por la del servidor de ngrok (recordar que es temporal)
+probar levantando django, rasa y ngrok al mismo tiempo (recuerda pararte en las carpetas que correspondan)
+django: python manage.py runserver
+rasa: rasa run --enable-api --cors "*"
+
+instalar docker segun instrucciones
+
+instalar duckling?
+subir a pythonanywhere?

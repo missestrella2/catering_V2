@@ -1,0 +1,31 @@
+docker
+======
+instalar docker dentro de la carpeta de rasa: 
+antes de instalar verificar en Activar caracteristicas de Windows:
+deben estar activados:
+Hyper-V
+Subsistema de Windows para Linux
+En administrador de tareas, CPU, rendimiento:
+Debe decir: Virtualizacion ACTIVADO (sino hay que activarlo en la BIOS)
+Ahora instalar
+
+si lo pide, instalar wsl en VSC
+en powershell ADMIN: dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+wsl --install --no-distribution
+agregar docker al path 
+instalar ubunto en wsl usando powershell:  wsl --install -d Ubuntu
+entrar a docker >settings > resources > wsl integation y activar UBUNTU
+crear dockerfile
+crear imagen docker en powershell: docker build -t amandaodoo/rasa-container .
+ejecutar:
+en powershell: docker run -it -p 8080:8080 amandaodoo/rasa-container
+subir repositorio:
+docker push amandaodoo/rasa-container
+
+========
+
+para descargar el container oficial rasa/rasa:
+docker run -it -p 8080:8080 rasa/rasa
+LINUX: docker run -it -p 8080:8080 -v $(pwd):/app rasa/rasa run --enable-api --port:8080
+POWERSHELL: docker run -it -p 8080:8080 -v C:\Users\Damian\Downloads\Cynthia\PROYECTO_FINAL\catering_v2\rasa:/app rasa/rasa run --enable-api --port 8080
