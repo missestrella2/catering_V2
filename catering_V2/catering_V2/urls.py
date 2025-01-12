@@ -34,6 +34,7 @@ urlpatterns = [
     #path('calculos/calcular/', views.calcular_catering, name='calcular_catering'),
     path('calculos/', views.home_calculos, name='home_calculos'),  # Nueva ruta para /calculos/
     path('api/', include('api.urls')),
+    
 
 ]
 

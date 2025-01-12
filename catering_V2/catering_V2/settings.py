@@ -33,10 +33,13 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://9b87-181-171-187-236.ngrok-free.app',  # Reemplaza por tu URL de ngrok
+    'https://f6d6-181-171-187-236.ngrok-free.app',  # Reemplaza por tu URL de ngrok
     'http://localhost:5005',                  # Action Server local
-    'http://127.0.0.1:5005'                   # Otra forma de localhost
+    'http://127.0.0.1:5005',           # Otra forma de localhost
+    'https://19e9-181-171-187-236.ngrok-free.app',                   
 ]
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'f6d6-181-171-187-236.ngrok-free.app', '19e9-181-171-187-236.ngrok-free.app']
 
 
 # Application definition
